@@ -48,3 +48,7 @@ Style/ClassAndModuleChildren:
 
 Style/NumberedParametersLimit:
   Max: 2
+
+Naming/FileName:
+  Exclude:
+    - cryptoform

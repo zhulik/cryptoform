@@ -29,7 +29,10 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Uncomment to register a new dependency of your gem
+  spec.add_dependency "async-http", "~> 0.69"
+  spec.add_dependency "base64", "~> 0.2"
+  spec.add_dependency "lockbox", "~> 1.3"
   spec.add_dependency "zeitwerk", "~> 2.6"
+
   spec.metadata["rubygems_mfa_required"] = "true"
 end

@@ -1,0 +1,4 @@
+# frozen_string_literal: true
+
+port 3000
+key { ENV.fetch("CRYPTOFORM_KEY") }
