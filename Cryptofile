@@ -4,10 +4,10 @@ port 3000
 
 state :state1 do
   storage_backend :file, name: "state1.tfstate.enc"
-  key { ENV.fetch("CRYPTOFORM_KEY") }
+  encryption_backend :lockbox, key: -> { ENV.fetch("CRYPTOFORM_KEY") }
 end
 
 state :state2 do
   storage_backend :file, name: "state2.tfstate.enc"
-  key { ENV.fetch("CRYPTOFORM_KEY") }
+  encryption_backend :lockbox, key: -> { ENV.fetch("CRYPTOFORM_KEY") }
 end

@@ -34,19 +34,11 @@ class Cryptoform::Server
   end
 
   def get_state(state_config, *)
-    ciphertext = state_config.storage_backend.read
-
-    lb = Lockbox.new(key: state_config.key.call, encode: true)
-    ::Protocol::HTTP::Response[200, {}, [lb.decrypt(ciphertext)]]
+    ::Protocol::HTTP::Response[200, {}, [state_config.encryption_backend.decrypt(state_config.storage_backend.read)]]
   end
 
   def post_state(state_config, request:)
-    body = request.body.read
-
-    lb = Lockbox.new(key: state_config.key.call, encode: true)
-    ciphertext = lb.encrypt(body)
-
-    state_config.storage_backend.write(ciphertext)
+    state_config.storage_backend.write(state_config.encryption_backend.encrypt(request.body.read))
 
     ::Protocol::HTTP::Response[201, {}, []]
   end
