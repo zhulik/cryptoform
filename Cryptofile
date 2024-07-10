@@ -3,11 +3,11 @@
 port 3000
 
 state :state1 do
-  backend :file, name: "state1.tfstate.enc"
+  storage_backend :file, name: "state1.tfstate.enc"
   key { ENV.fetch("CRYPTOFORM_KEY") }
 end
 
 state :state2 do
-  backend :file, name: "state2.tfstate.enc"
+  storage_backend :file, name: "state2.tfstate.enc"
   key { ENV.fetch("CRYPTOFORM_KEY") }
 end

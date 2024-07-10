@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Cryptoform::Backends::File < Cryptoform::Backends::Backend
+class Cryptoform::StorageBackends::File < Cryptoform::StorageBackends::Backend
   def read
     ::File.read(filename)
   rescue Errno::ENOENT

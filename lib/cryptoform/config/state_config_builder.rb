@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Cryptoform::Config::StateConfigBuilder
-  Config = Data.define(:key, :backend)
+  Config = Data.define(:key, :storage_backend)
 
-  BACKENDS = {
-    file: Cryptoform::Backends::File
+  STORAGE_BACKENDS = {
+    file: Cryptoform::StorageBackends::File
   }.freeze
 
   def initialize(name, &)
@@ -15,17 +15,17 @@ class Cryptoform::Config::StateConfigBuilder
 
   def key(&block) = @key = block
 
-  def backend(name, **)
+  def storage_backend(name, **)
     name = name.to_sym
-    raise ArgumentError, "unknown backend #{name}" unless BACKENDS.key?(name)
+    raise ArgumentError, "unknown backend #{name}" unless STORAGE_BACKENDS.key?(name)
 
-    @backend = BACKENDS[name].new(@name, **)
+    @storage_backend = STORAGE_BACKENDS[name].new(@name, **)
   end
 
-  def config = Config.new(@key, @backend)
+  def config = Config.new(@key, @storage_backend)
 
   def validate!
     raise Cryptoform::ConfigValidationError, "key must be specified for state '#{@name}'" if @key.nil?
-    raise Cryptoform::ConfigValidationError, "backend must be specified for state '#{@name}'" if @backend.nil?
+    raise Cryptoform::ConfigValidationError, "backend must be specified for state '#{@name}'" if @storage_backend.nil?
   end
 end
