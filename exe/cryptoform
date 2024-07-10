@@ -3,4 +3,10 @@
 
 require "cryptoform"
 
-Cryptoform::Runner.run("Cryptofile")
+begin
+  Sync do
+    Cryptoform::Runner.run("Cryptofile")
+  end
+rescue Interrupt
+  puts("Interrupted")
+end

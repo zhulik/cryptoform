@@ -6,14 +6,10 @@ class Cryptoform::Server
   end
 
   def run
-    Sync do
-      logger.info { "Cryptoform is listening on #{endpoint.url}..." }
-      Async::HTTP::Server.for(endpoint) do |request|
-        log_request(request) { handle_request(request) }
-      end.run
-    end
-  rescue Interrupt
-    nil
+    logger.info { "Cryptoform is listening on #{endpoint.url}..." }
+    Async::HTTP::Server.for(endpoint) do |request|
+      log_request(request) { handle_request(request) }
+    end.run
   end
 
   private
