@@ -10,6 +10,8 @@ loader = Zeitwerk::Loader.for_gem
 
 loader.setup
 
-class Cryptoform::Error < StandardError
-  # Your code goes here...
+module Cryptoform
+  class Error < StandardError; end
+  class ConfigValidationError < Cryptoform::Error; end
+  class StateMissingError < Cryptoform::Error; end
 end

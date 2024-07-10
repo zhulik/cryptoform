@@ -1,4 +1,13 @@
 # frozen_string_literal: true
 
 port 3000
-key { ENV.fetch("CRYPTOFORM_KEY") }
+
+state :state1 do
+  backend :file, name: "state1.tfstate.enc"
+  key { ENV.fetch("CRYPTOFORM_KEY") }
+end
+
+state :state2 do
+  backend :file, name: "state2.tfstate.enc"
+  key { ENV.fetch("CRYPTOFORM_KEY") }
+end
