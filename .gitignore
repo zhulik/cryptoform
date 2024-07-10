@@ -1,3 +1,4 @@
+.terraform/
 /.bundle/
 /.yardoc
 /_yardoc/

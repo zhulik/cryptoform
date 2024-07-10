@@ -8,7 +8,9 @@ class Cryptoform::Server
   def run
     Sync do
       logger.info { "Cryptoform is listening on #{endpoint.url}..." }
-      Async::HTTP::Server.for(endpoint) { handle_request(_1) }.run
+      Async::HTTP::Server.for(endpoint) do |request|
+        log_request(request) { handle_request(request) }
+      end.run
     end
   rescue Interrupt
     nil
@@ -52,4 +54,10 @@ class Cryptoform::Server
   def logger = @logger ||= Logger.new($stdout)
 
   def endpoint = @endpoint ||= Async::HTTP::Endpoint.parse("http://localhost:#{@config.port}")
+
+  def log_request(request)
+    yield.tap do |response|
+      logger.info { "#{request.method} #{request.path}: #{response.status}" }
+    end
+  end
 end
