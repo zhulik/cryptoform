@@ -30,7 +30,8 @@ class Cryptoform::Server
   end
 
   def get_state(state_config, *)
-    ::Protocol::HTTP::Response[200, {}, [state_config.encryption_backend.decrypt(state_config.storage_backend.read)]]
+    state = state_config.encryption_backend.decrypt(state_config.storage_backend.read)
+    ::Protocol::HTTP::Response[200, {}, [JSON.pretty_generate(state)]]
   end
 
   def post_state(state_config, request:)

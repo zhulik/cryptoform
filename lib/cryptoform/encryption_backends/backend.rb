@@ -7,5 +7,5 @@ class Cryptoform::EncryptionBackends::Backend
   end
 
   def decrypt(ciphertext) = raise NotImplementedError
-  def encrypt(test) = raise NotImplementedError
+  def encrypt(json) = raise NotImplementedError
 end
