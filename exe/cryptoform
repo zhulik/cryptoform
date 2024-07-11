@@ -5,7 +5,7 @@ require "cryptoform"
 
 begin
   Sync do
-    Cryptoform::Runner.run("Cryptofile")
+    Cryptoform.run("Cryptofile")
   end
 rescue Interrupt
   puts("Interrupted")
