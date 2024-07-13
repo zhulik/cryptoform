@@ -17,18 +17,18 @@ class Cryptoform::Config::StateConfigBuilder
     instance_exec(&)
   end
 
-  def storage_backend(name, **)
+  def storage_backend(name, **params)
     name = name.to_sym
     raise ArgumentError, "unknown storage backend #{name}" unless STORAGE_BACKENDS.key?(name)
 
-    @storage_backend = STORAGE_BACKENDS[name].new(@name, **)
+    @storage_backend = STORAGE_BACKENDS[name].new(@name, **params)
   end
 
-  def encryption_backend(name, **)
+  def encryption_backend(name, **params)
     name = name.to_sym
     raise ArgumentError, "unknown encryption backend #{name}" unless ENCRYPTION_BACKENDS.key?(name)
 
-    @encryption_backend = ENCRYPTION_BACKENDS[name].new(@name, **)
+    @encryption_backend = ENCRYPTION_BACKENDS[name].new(@name, **params)
   end
 
   def config = Config.new(@storage_backend, @encryption_backend)
