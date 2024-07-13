@@ -1,24 +1,48 @@
 # Cryptoform
 
-TODO: Delete this and the text below, and describe your gem
+Implemented as an http backend, cryptoform encypts your state using one of the providers and stores in one
+on the backends. Currently only [lockbox](https://github.com/ankane/lockbox) provider and file backend 
+are supported. The tool designed to be modular so other encryption providers and backends may be added
+later on.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cryptoform`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Why
+
+Even though it's strongly recommended to use S3 or some other 3rd party service to store the state, and 
+using git to store it is discouraged, sometimes it's still very handy to not have any external services
+and store the state in git, encryted for better safety. For instance: you work on the project alone and
+you don't need locking(an external lock mechanism can be supported in the future) and you don't want to
+bother configuring an external state store.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+1. Install one of supported ruby versions: 3.1 or newer
+2. In your terraform project, create 2 files:
+    
+    *Gemfile*:
+    ```ruby
+    # frozen_string_literal: true
 
-Install the gem and add to the application's Gemfile by executing:
+    source "https://rubygems.org"
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    gem "cryptoform"
+    ```
+3. Run `bundle install`
+4. TODO: Run `bundle exec rake cryptoform:init` and save the printed key.
+5. Run `CRYPTOFORM_KEY=<key from the previous step> bundle exec cryptoform`
+6. Configure your terraform backend:
+    ```hcl
+    terraform {
+        backend "http" {
+            address = "http://127.0.0.1:3000/state"
+        }
+    }
+    ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+TODO: ship in docker?
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+## Cryptofile
 
-## Usage
-
-TODO: Write usage instructions here
+TODO: Write Cryptofile details here
 
 ## Development
 
