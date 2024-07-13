@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cryptoform (0.1.0)
+    cryptoform (0.1.1)
       async-http (~> 0.69)
       base64 (~> 0.2)
       lockbox (~> 1.3)

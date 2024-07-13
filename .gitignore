@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 *.enc
+*.gem
 
 # rspec failure tracking
 .rspec_status
