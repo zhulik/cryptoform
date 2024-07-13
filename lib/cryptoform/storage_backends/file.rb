@@ -7,9 +7,13 @@ class Cryptoform::StorageBackends::File < Cryptoform::StorageBackends::Backend
     raise Cryptoform::StateMissingError, "state '#{@state_name}' is configured but missing"
   end
 
-  def write(data) = ::File.write(filename, data)
+  def write(data)
+    ::File.write(filename, data)
+  end
 
   private
 
-  def filename = @filename ||= @params[:name] || "#{@state_name}.tfstate.enc"
+  def filename
+    @filename ||= @params[:name] || "#{@state_name}.tfstate.enc"
+  end
 end

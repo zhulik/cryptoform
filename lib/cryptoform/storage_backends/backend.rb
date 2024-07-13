@@ -6,6 +6,11 @@ class Cryptoform::StorageBackends::Backend
     @params = params
   end
 
-  def read = raise NotImplementedError
-  def write(data) = raise NotImplementedError
+  def read
+    raise NotImplementedError
+  end
+
+  def write(data)
+    raise NotImplementedError
+  end
 end

@@ -6,6 +6,11 @@ class Cryptoform::EncryptionBackends::Backend
     @params = params
   end
 
-  def decrypt(ciphertext) = raise NotImplementedError
-  def encrypt(json) = raise NotImplementedError
+  def decrypt(ciphertext)
+    raise NotImplementedError
+  end
+
+  def encrypt(json)
+    raise NotImplementedError
+  end
 end

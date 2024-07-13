@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
+require "simplecov"
+
+SimpleCov.start
+
 require "cryptoform"
+
+Zeitwerk::Loader.eager_load_all
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

@@ -31,7 +31,9 @@ class Cryptoform::Config::StateConfigBuilder
     @encryption_backend = ENCRYPTION_BACKENDS[name].new(@name, **params)
   end
 
-  def config = Config.new(@storage_backend, @encryption_backend)
+  def config
+    Config.new(@storage_backend, @encryption_backend)
+  end
 
   def validate!
     if @storage_backend.nil?

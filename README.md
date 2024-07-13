@@ -15,7 +15,7 @@ bother configuring an external state store.
 
 ## Installation
 
-1. Install one of supported ruby versions: 3.1 or newer
+1. Install one of supported ruby versions: 3.2 or newer
 2. In your terraform project, create 2 files:
     
     *Gemfile*:

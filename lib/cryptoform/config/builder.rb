@@ -8,7 +8,9 @@ class Cryptoform::Config::Builder
     @states = {}
   end
 
-  def port(port) = @port = port
+  def port(port)
+    @port = port
+  end
 
   def state(name, &)
     name = name.to_sym
@@ -24,5 +26,7 @@ class Cryptoform::Config::Builder
     raise Cryptoform::ConfigValidationError, "port must be an integer" if @key.is_a?(Numeric)
   end
 
-  def config = Config.new(@port, @states.transform_values(&:config))
+  def config
+    Config.new(@port, @states.transform_values(&:config))
+  end
 end

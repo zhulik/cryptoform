@@ -40,9 +40,13 @@ class Cryptoform::Server
     ::Protocol::HTTP::Response[201, {}, []]
   end
 
-  def logger = @logger ||= Logger.new($stdout)
+  def logger
+    @logger ||= Logger.new($stdout)
+  end
 
-  def endpoint = @endpoint ||= Async::HTTP::Endpoint.parse("http://localhost:#{@config.port}")
+  def endpoint
+    @endpoint ||= Async::HTTP::Endpoint.parse("http://localhost:#{@config.port}")
+  end
 
   def log_request(request)
     yield.tap do |response|
