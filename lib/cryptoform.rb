@@ -4,8 +4,6 @@ require "zeitwerk"
 require "logger"
 
 require "lockbox"
-require "webrick"
-require "rackup"
 require "sinatra"
 require "sinatra/json"
 

@@ -7,7 +7,6 @@ PATH
       rackup (~> 2.1)
       sinatra (~> 4.0)
       sinatra-contrib (~> 4.0)
-      webrick (~> 1.8)
       zeitwerk (~> 2.6)
 
 GEM

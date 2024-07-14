@@ -34,7 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rackup", "~> 2.1"
   spec.add_dependency "sinatra", "~> 4.0"
   spec.add_dependency "sinatra-contrib", "~> 4.0"
-  spec.add_dependency "webrick", "~> 1.8"
   spec.add_dependency "zeitwerk", "~> 2.6"
 
   spec.metadata["rubygems_mfa_required"] = "true"
