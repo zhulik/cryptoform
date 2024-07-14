@@ -3,6 +3,10 @@
 class Cryptoform::Application < Sinatra::Application
   set :show_exceptions, false
 
+  before do
+    content_type "application/json"
+  end
+
   def initialize(config)
     super
     @states = config.states
