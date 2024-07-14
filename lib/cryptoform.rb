@@ -22,7 +22,7 @@ module Cryptoform
     def run(cryptofile)
       config = Cryptoform::Config::Builder.new(cryptofile)
       config.validate!
-      Cryptoform::Server.new(config.config).run
+      Cryptoform::Application.run!(config.config)
     end
   end
 end

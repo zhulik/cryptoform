@@ -7,9 +7,12 @@ class Cryptoform::Application < Sinatra::Application
     content_type "application/json"
   end
 
-  def initialize(config)
-    super
-    @states = config.states
+  class << self
+    def run!(config)
+      Cryptoform::Application.port = config.port
+      Cryptoform::Application.set :config, config
+      super()
+    end
   end
 
   get "/states/:name" do
@@ -37,6 +40,10 @@ class Cryptoform::Application < Sinatra::Application
 
   def state_config
     name = params[:name].to_sym
-    @states[name] || raise(Sinatra::NotFound, "state #{name} is not configured in Cryptofile")
+    states[name] || raise(Sinatra::NotFound, "state '#{name}' is not configured in Cryptofile")
+  end
+
+  def states
+    @states ||= settings.config.states
   end
 end
