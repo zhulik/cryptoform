@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Cryptoform::EncryptionBackends::Lockbox do
+RSpec.describe Cryptoform::EncryptionBackends::DiffLockbox do
   let(:backend) { described_class.new("test", key: -> { key }) }
   let(:key) { Lockbox.generate_key }
   let(:content) do
@@ -85,7 +85,10 @@ RSpec.describe Cryptoform::EncryptionBackends::Lockbox do
   it "successfuly encrypts and decrypts given text" do
     encrypted = backend.encrypt(content)
     expect(encrypted).not_to eq(content)
-    expect { JSON.parse(encrypted) }.to raise_error(JSON::ParserError)
+
+    parsed_encrypted = JSON.parse(encrypted, symbolize_names: true)
+    expect(parsed_encrypted.keys).to match_array(content.keys)
+
     expect(backend.decrypt(backend.encrypt(content))).to eq(content)
   end
 end

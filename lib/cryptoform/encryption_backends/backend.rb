@@ -10,7 +10,7 @@ class Cryptoform::EncryptionBackends::Backend
     raise NotImplementedError
   end
 
-  def encrypt(json)
+  def encrypt(object)
     raise NotImplementedError
   end
 end

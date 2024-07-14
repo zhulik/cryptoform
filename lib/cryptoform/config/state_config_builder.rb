@@ -8,7 +8,8 @@ class Cryptoform::Config::StateConfigBuilder
   }.freeze
 
   ENCRYPTION_BACKENDS = {
-    lockbox: Cryptoform::EncryptionBackends::Lockbox
+    lockbox: Cryptoform::EncryptionBackends::Lockbox,
+    diff_lockbox: Cryptoform::EncryptionBackends::DiffLockbox
   }.freeze
 
   def initialize(name, &)
