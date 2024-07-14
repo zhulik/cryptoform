@@ -4,7 +4,10 @@ require "zeitwerk"
 require "logger"
 
 require "lockbox"
-require "async/http"
+require "webrick"
+require "rackup"
+require "sinatra"
+require "sinatra/json"
 
 loader = Zeitwerk::Loader.for_gem
 

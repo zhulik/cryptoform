@@ -3,10 +3,4 @@
 
 require "cryptoform"
 
-begin
-  Sync do
-    Cryptoform.run("Cryptofile")
-  end
-rescue Interrupt
-  puts("Interrupted")
-end
+Cryptoform.run("Cryptofile")

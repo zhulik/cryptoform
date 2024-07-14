@@ -1,5 +1,5 @@
 terraform {
   backend "http" {
-    address = "http://127.0.0.1:3000/state1"
+    address = "http://127.0.0.1:3000/state"
   }
 }

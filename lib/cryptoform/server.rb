@@ -5,52 +5,27 @@ class Cryptoform::Server
     @config = config
   end
 
-  def run
-    logger.info { "Cryptoform is listening on #{endpoint.url}..." }
-    Async::HTTP::Server.for(endpoint) do |request|
-      log_request(request) { handle_request(request) }
-    end.run
+  def run # rubocop:disable Metrics/MethodLength
+    server = WEBrick::HTTPServer.new(
+      Port: @config.port,
+      BindAddress: "0.0.0.0",
+      AccessLog: [
+        [$stdout, WEBrick::AccessLog::COMMON_LOG_FORMAT],
+        [$stdout, WEBrick::AccessLog::REFERER_LOG_FORMAT]
+      ]
+    )
+    trap "INT" do
+      server.shutdown
+    end
+
+    server.mount("/", Rackup::Handler::WEBrick, app)
+
+    server.start
   end
 
   private
 
-  def handle_request(request) # rubocop:disable Metrics/AbcSize
-    name = request.path.split("/")&.[](1)&.to_sym
-    return ::Protocol::HTTP::Response[404, {}, []] unless @config.states.key?(name)
-
-    handler_name = :"#{request.method.downcase}_state"
-    return ::Protocol::HTTP::Response[405, {}, []] unless respond_to?(handler_name, true)
-
-    send(handler_name, @config.states[name], request:)
-  rescue Cryptoform::StateMissingError
-    ::Protocol::HTTP::Response[404, {}, []]
-  rescue StandardError => e
-    logger.error(e)
-    ::Protocol::HTTP::Response[500, {}, []]
-  end
-
-  def get_state(state_config, *)
-    state = state_config.encryption_backend.decrypt(state_config.storage_backend.read)
-    ::Protocol::HTTP::Response[200, {}, [JSON.pretty_generate(state)]]
-  end
-
-  def post_state(state_config, request:)
-    state_config.storage_backend.write(state_config.encryption_backend.encrypt(request.body.read))
-
-    ::Protocol::HTTP::Response[201, {}, []]
-  end
-
-  def logger
-    @logger ||= Logger.new($stdout)
-  end
-
-  def endpoint
-    @endpoint ||= Async::HTTP::Endpoint.parse("http://localhost:#{@config.port}")
-  end
-
-  def log_request(request)
-    yield.tap do |response|
-      logger.info { "#{request.method} #{request.path}: #{response.status}" }
-    end
+  def app
+    @app ||= Cryptoform::AppBuilder.build(@config)
   end
 end
