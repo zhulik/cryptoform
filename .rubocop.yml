@@ -57,3 +57,6 @@ Style/NumberedParametersLimit:
 Naming/FileName:
   Exclude:
     - cryptoform
+
+RSpec/MultipleExpectations:
+  Enabled: false

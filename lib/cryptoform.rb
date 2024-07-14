@@ -19,8 +19,8 @@ module Cryptoform
   class StateMissingError < Cryptoform::Error; end
 
   class << self
-    def run(path)
-      config = Cryptoform::Config::Builder.new.tap { _1.instance_eval(File.read(path)) }
+    def run(cryptofile)
+      config = Cryptoform::Config::Builder.new(cryptofile)
       config.validate!
       Cryptoform::Server.new(config.config).run
     end

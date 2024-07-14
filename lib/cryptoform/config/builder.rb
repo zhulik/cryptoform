@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class Cryptoform::Config::Builder
+  PORTS = 1..65_535
   Config = Data.define(:port, :states)
 
-  def initialize
+  def initialize(cryptofile)
     @port = 3000
     @states = {}
+
+    instance_eval(cryptofile)
   end
 
   def port(port)
@@ -22,8 +25,8 @@ class Cryptoform::Config::Builder
 
   def validate!
     @states.each_value(&:validate!)
-
-    raise Cryptoform::ConfigValidationError, "port must be an integer" if @key.is_a?(Numeric)
+    raise Cryptoform::ConfigValidationError, "at least one state must be configured" if @states.empty?
+    raise Cryptoform::ConfigValidationError, "port must be an in range 0-65545" unless PORTS.include?(@port)
   end
 
   def config

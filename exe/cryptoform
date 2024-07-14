@@ -3,4 +3,4 @@
 
 require "cryptoform"
 
-Cryptoform.run("Cryptofile")
+Cryptoform.run(File.read("Cryptofile"))
