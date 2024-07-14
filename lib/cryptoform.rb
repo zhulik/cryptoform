@@ -15,6 +15,7 @@ module Cryptoform
   class Error < StandardError; end
   class ConfigValidationError < Cryptoform::Error; end
   class StateMissingError < Cryptoform::Error; end
+  class UnknownStateError < Cryptoform::Error; end
 
   class << self
     def run(cryptofile)

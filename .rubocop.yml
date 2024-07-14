@@ -60,3 +60,9 @@ Naming/FileName:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/IndexedLet:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10

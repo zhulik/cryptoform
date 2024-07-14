@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+require "rack/test"
+
 require "simplecov"
 
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/spec"
+end
 
 require "cryptoform"
 

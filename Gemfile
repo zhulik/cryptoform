@@ -6,13 +6,14 @@ source "https://rubygems.org"
 gemspec
 
 gem "overcommit"
+gem "rack-test"
 gem "rake"
 gem "rspec"
 gem "simplecov"
 gem "solargraph"
 
 gem "rubocop"
+gem "rubocop-disable_syntax"
 gem "rubocop-performance"
 gem "rubocop-rake"
 gem "rubocop-rspec"
-gem 'rubocop-disable_syntax'
