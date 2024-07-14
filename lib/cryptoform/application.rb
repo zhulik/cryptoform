@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Cryptoform::Application < Sinatra::Application
+  set :show_exceptions, false
+
   def initialize(config)
     super
     @states = config.states
@@ -8,15 +10,23 @@ class Cryptoform::Application < Sinatra::Application
 
   get "/states/:name" do
     state = state_config.encryption_backend.decrypt(state_config.storage_backend.read)
-    json state
-  rescue Cryptoform::StateMissingError
-    raise Sinatra::NotFound
+    json(state)
   end
 
   post "/states/:name" do
     state = JSON.parse(request.body.read)
     state_config.storage_backend.write(state_config.encryption_backend.encrypt(state))
     json(state)
+  end
+
+  error Cryptoform::StateMissingError do |e|
+    status 404
+    json(error: e.message)
+  end
+
+  error Sinatra::NotFound do |e|
+    status 404
+    json(error: e.message)
   end
 
   private
