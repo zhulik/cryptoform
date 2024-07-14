@@ -2,30 +2,20 @@
 
 class Cryptoform::Server
   def initialize(config)
-    @config = config
-  end
-
-  def run # rubocop:disable Metrics/MethodLength
-    server = WEBrick::HTTPServer.new(
-      Port: @config.port,
+    @server = WEBrick::HTTPServer.new(
+      Port: config.port,
       BindAddress: "0.0.0.0",
       AccessLog: [
         [$stdout, WEBrick::AccessLog::COMMON_LOG_FORMAT],
         [$stdout, WEBrick::AccessLog::REFERER_LOG_FORMAT]
       ]
     )
-    trap "INT" do
-      server.shutdown
-    end
+    trap("INT") { @server.shutdown }
 
-    server.mount("/", Rackup::Handler::WEBrick, app)
-
-    server.start
+    @server.mount("/", Rackup::Handler::WEBrick, Cryptoform::Application.new(config))
   end
 
-  private
-
-  def app
-    @app ||= Cryptoform::AppBuilder.build(@config)
+  def run
+    @server.start
   end
 end
