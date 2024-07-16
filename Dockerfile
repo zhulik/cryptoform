@@ -25,5 +25,6 @@ COPY --from=builder /app/ /app
 EXPOSE 3000
 
 WORKDIR /app/mnt
+ENV APP_ENV=production
 
 CMD ["bundle", "exec", "../exe/cryptoform"]

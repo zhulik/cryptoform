@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+set -eu
+
+docker run -it --rm \
+  -e CRYPTOFORM_KEY=$CRYPTOFORM_KEY \
+  -v $(pwd):/app/mnt \
+  -p 3000:3000 \
+  ghcr.io/zhulik/cryptoform
