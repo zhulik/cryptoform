@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Cryptoform::Application < Sinatra::Application
+class Cryptoform::Server < Sinatra::Application
   set :show_exceptions, false
 
   before do
@@ -9,8 +9,8 @@ class Cryptoform::Application < Sinatra::Application
 
   class << self
     def run!(config, **)
-      Cryptoform::Application.port = config.port
-      Cryptoform::Application.set(:states, config.states)
+      Cryptoform::Server.port = config.port
+      Cryptoform::Server.set(:states, config.states)
       super(**)
     end
   end

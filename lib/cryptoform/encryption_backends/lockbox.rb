@@ -9,6 +9,10 @@ class Cryptoform::EncryptionBackends::Lockbox < Cryptoform::EncryptionBackends::
     JSON.parse(lockbox.decrypt(ciphertext), symbolize_names: true)
   end
 
+  def generate_key
+    ::Lockbox.generate_key
+  end
+
   private
 
   def lockbox
