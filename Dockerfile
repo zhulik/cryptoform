@@ -17,9 +17,6 @@ COPY . .
 
 FROM base
 
-# TODO: get rid of git here
-RUN apk add --no-cache git
-
 COPY --from=builder /app/ /app
 
 EXPOSE 3000
