@@ -1,0 +1,10 @@
+/.git
+/.github/
+/terraform/
+/pkg/
+/coverage/
+/spec/
+
+/.*
+*.gem
+Cryptofile
