@@ -4,5 +4,5 @@ port 3000
 
 state :state do
   storage_backend :file
-  encryption_backend :lockbox, key: -> { ENV.fetch("CRYPTOFORM_KEY") }
+  encryption_backend :diff_lockbox, key: -> { ENV.fetch("CRYPTOFORM_KEY") }
 end

@@ -6,7 +6,7 @@ RSpec.describe Cryptoform do
   end
 
   describe ".run" do
-    subject { described_class.run(cryptofile) }
+    subject { described_class.run!(cryptofile) }
 
     let(:cryptofile) do
       <<-RUBY
@@ -22,7 +22,7 @@ RSpec.describe Cryptoform do
     let(:server_stub) { instance_double(Cryptoform::Server) }
 
     before do
-      allow(Cryptoform::Application).to receive(:run!)
+      allow(Cryptoform::Server).to receive(:run!)
     end
 
     it "runs the server" do

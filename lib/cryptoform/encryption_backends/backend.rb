@@ -13,4 +13,8 @@ class Cryptoform::EncryptionBackends::Backend
   def encrypt(object)
     raise NotImplementedError
   end
+
+  def generate_key
+    raise NotImplementedError
+  end
 end

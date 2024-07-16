@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Cryptoform::Application do
+RSpec.describe Cryptoform::Server do
   include Rack::Test::Methods
 
   def parsed_body
