@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  - release
+
+jobs:
+  gem:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+
+      - name: Build gem
+        run: gem build
+
+      - name: Create credentials
+        run: |
+          mkdir ~/.gem
+          cat << EOF > ~/.gem/credentials
+          ---
+          :rubygems_api_key: ${{ secrets.RUBYGEMS_TOKEN }}
+          EOF
+          chmod 0600 /home/runner/.gem/credentials
+
+      - name: Push gem
+        run: gem push *gem
