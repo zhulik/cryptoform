@@ -72,9 +72,9 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }},
-            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars.MINOR }},
-            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars.MINOR }}.${{ vars.PATCH }}
+            ${{ env.IMAGE_NAME }}:${{ env.MAJOR }},
+            ${{ env.IMAGE_NAME }}:${{ env.MAJOR }}.${{ env.MINOR }},
+            ${{ env.IMAGE_NAME }}:${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
 
           cache-from: type=gha
           cache-to: type=gha,mode=max
