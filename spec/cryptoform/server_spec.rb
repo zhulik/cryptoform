@@ -41,7 +41,7 @@ RSpec.describe Cryptoform::Server do
     it "returns server info" do
       get "/"
       expect(last_response).to be_ok
-      expect(parsed_body).to eq({ cryptoform: { version: "0.4.0" } })
+      expect(parsed_body).to eq({ cryptoform: { version: Cryptoform::VERSION } })
     end
   end
 
