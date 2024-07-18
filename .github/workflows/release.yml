@@ -73,7 +73,7 @@ jobs:
           push: true
           tags: |
             ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }},
-            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars MINOR }},
+            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars.MINOR }},
             ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars.MINOR }}.${{ vars.PATCH }}
 
           cache-from: type=gha
