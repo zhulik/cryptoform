@@ -2,7 +2,28 @@
 
 class Cryptoform::Config::Builder
   PORTS = 1..65_535
-  Config = Data.define(:port, :states)
+  class Config
+    attr_reader :port, :states
+
+    class States
+      def initialize(states)
+        @store = states
+      end
+
+      def [](name)
+        @store[name] || raise(Cryptoform::UnknownStateError, "state '#{name}' is not configured in Cryptofile")
+      end
+
+      def to_h
+        @store
+      end
+    end
+
+    def initialize(port, states)
+      @port = port
+      @states = States.new(states)
+    end
+  end
 
   def initialize(cryptofile)
     @port = 3000
