@@ -32,7 +32,7 @@ class Cryptoform::Server < Sinatra::Application
   end
 
   get "/states" do
-    json(settings.states.transform_values { {} })
+    json(settings.states.to_h.transform_values { {} })
   end
 
   get "/states/:name" do

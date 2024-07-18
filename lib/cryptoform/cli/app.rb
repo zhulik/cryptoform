@@ -13,5 +13,9 @@ class Cryptoform::CLI::App < Thor
     def cryptofile_path
       options[:cryptofile]
     end
+
+    def read_cryptofile
+      File.read(cryptofile_path)
+    end
   end
 end

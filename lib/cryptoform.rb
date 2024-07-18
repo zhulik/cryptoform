@@ -29,7 +29,7 @@ module Cryptoform
     end
 
     def load_cryptofile!(cryptofile)
-      Cryptoform::Config::Builder.new(cryptofile).tap(&:validate!)
+      Cryptoform::Config::Builder.new(cryptofile)
     end
   end
 end
