@@ -10,9 +10,13 @@ require "zeitwerk"
 
 loader = Zeitwerk::Loader.for_gem
 
+loader.inflector.inflect("cli" => "CLI")
+
 loader.setup
 
 module Cryptoform
+  CRYPTOFILE = "Cryptofile"
+
   class Error < StandardError; end
   class ConfigValidationError < Cryptoform::Error; end
   class StateMissingError < Cryptoform::Error; end

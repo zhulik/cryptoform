@@ -27,6 +27,7 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
     - "*.gemspec"
+    - lib/cryptoform/cli/**/*.rb
 
 RSpec/NamedSubject:
   Enabled: false
@@ -66,3 +67,7 @@ RSpec/IndexedLet:
 
 RSpec/MultipleMemoizedHelpers:
   Max: 10
+
+Metrics/MethodLength:
+  Exclude:
+    - lib/cryptoform/cli/**/*.rb
