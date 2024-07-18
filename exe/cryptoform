@@ -22,7 +22,7 @@ class CryptoformCLI < Thor
   desc "validate", "validate your cryptofile"
   option :cryptofile, type: :string, default: CRYPTOFOFILE
   def validate
-    Cryptoform.validate!(File.read(options[:cryptofile]))
+    Cryptoform.load_cryptofile!(File.read(options[:cryptofile]))
     puts "#{options[:cryptofile]} is valid!"
   rescue Cryptoform::ConfigValidationError => e
     puts "#{options[:cryptofile]} is invalid:"
@@ -47,8 +47,7 @@ class CryptoformCLI < Thor
       **options.slice(:name, :port, :storage_backend, :encryption_backend).transform_keys(&:to_sym)
     )
     cryptofile = config_generator.generate_cryptofile
-    config = Cryptoform.load_cryptofile(cryptofile)
-    config.validate!
+    config = Cryptoform.load_cryptofile!(cryptofile)
 
     if options[:generate_key]
       key = config.config.states[options[:name].to_sym].encryption_backend.generate_key

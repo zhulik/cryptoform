@@ -9,6 +9,7 @@
 /tmp/
 *.enc
 *.gem
+*.tfstate
 
 # rspec failure tracking
 .rspec_status

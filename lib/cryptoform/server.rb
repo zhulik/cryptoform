@@ -3,6 +3,14 @@
 class Cryptoform::Server < Sinatra::Application
   set :show_exceptions, false
 
+  class Encoder
+    def self.encode(json)
+      JSON.pretty_generate(json)
+    end
+  end
+
+  set :json_encoder, Encoder
+
   before do
     content_type "application/json"
   end

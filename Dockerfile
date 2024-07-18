@@ -24,4 +24,4 @@ EXPOSE 3000
 WORKDIR /app/mnt
 ENV APP_ENV=production
 
-CMD ["bundle", "exec", "../exe/cryptoform"]
+ENTRYPOINT ["bundle", "exec", "../exe/cryptoform"]

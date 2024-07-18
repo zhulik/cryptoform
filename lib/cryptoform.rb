@@ -20,17 +20,12 @@ module Cryptoform
 
   class << self
     def run!(cryptofile)
-      config = load_cryptofile(cryptofile)
-      config.validate!
+      config = load_cryptofile!(cryptofile)
       Cryptoform::Server.run!(config.config)
     end
 
-    def validate!(cryptofile)
-      load_cryptofile(cryptofile).validate!
-    end
-
-    def load_cryptofile(cryptofile)
-      Cryptoform::Config::Builder.new(cryptofile)
+    def load_cryptofile!(cryptofile)
+      Cryptoform::Config::Builder.new(cryptofile).tap(&:validate!)
     end
   end
 end
