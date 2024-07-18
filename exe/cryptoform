@@ -5,24 +5,6 @@ ENV["APP_ENV"] = "production"
 
 require "cryptoform"
 
-class CryptoformCLI < Thor
-  class << self
-    def exit_on_failure?
-      false
-    end
-  end
+Zeitwerk::Loader.eager_load_all
 
-  include Cryptoform::CLI::Server
-  include Cryptoform::CLI::Validate
-  include Cryptoform::CLI::Init
-
-  default_command :server
-
-  no_commands do
-    def cryptofile_path
-      options[:cryptofile]
-    end
-  end
-end
-
-CryptoformCLI.start(ARGV)
+Cryptoform::CLI::App.start(ARGV)
