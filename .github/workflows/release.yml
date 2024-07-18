@@ -57,20 +57,25 @@ jobs:
           MAJOR="${VERSION_PARTS[0]}"
           MINOR="${VERSION_PARTS[1]}"
           PATCH="${VERSION_PARTS[2]}"
-          echo "MAJOR=${MAJOR}" >> $GITHUB_ENV
-          echo "MINOR=${MINOR}" >> $GITHUB_ENV
-          echo "PATCH=${PATCH}" >> $GITHUB_ENV
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        env:
-          IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
-        with:
-          push: true
-          tags: |
-            ${IMAGE_NAME}:${MAJOR},
-            ${IMAGE_NAME}:${MAJOR}.${MINOR},
-            ${IMAGE_NAME}:${MAJOR}.${MINOR}.${PATCH}
+          echo "MAJOR=${MAJOR}"
+          echo "MINOR=${MINOR}"
+          echo "PATCH=${PATCH}"
 
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # echo "MAJOR=${MAJOR}" >> $GITHUB_ENV
+          # echo "MINOR=${MINOR}" >> $GITHUB_ENV
+          # echo "PATCH=${PATCH}" >> $GITHUB_ENV
+
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v6
+      #   env:
+      #     IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+      #   with:
+      #     push: true
+      #     tags: |
+      #       ${IMAGE_NAME}:${MAJOR},
+      #       ${IMAGE_NAME}:${MAJOR}.${MINOR},
+      #       ${IMAGE_NAME}:${MAJOR}.${MINOR}.${PATCH}
+
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
