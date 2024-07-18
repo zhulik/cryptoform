@@ -54,28 +54,27 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
           IFS='.' read -r -a VERSION_PARTS <<< "${VERSION}"
-          MAJOR="${VERSION_PARTS[0]}"
-          MINOR="${VERSION_PARTS[1]}"
-          PATCH="${VERSION_PARTS[2]}"
+          major="${VERSION_PARTS[0]}"
+          minor="${VERSION_PARTS[1]}"
+          patch="${VERSION_PARTS[2]}"
 
-          echo "MAJOR=${MAJOR}"
-          echo "MINOR=${MINOR}"
-          echo "PATCH=${PATCH}"
+          echo "major=${major}" >> "$GITHUB_OUTPUT"
+          echo "minor=${minor}" >> "$GITHUB_OUTPUT"
+          echo "patch=${patch}" >> "$GITHUB_OUTPUT"
 
-          # echo "MAJOR=${MAJOR}" >> $GITHUB_ENV
-          # echo "MINOR=${MINOR}" >> $GITHUB_ENV
-          # echo "PATCH=${PATCH}" >> $GITHUB_ENV
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        env:
+          IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
+          MAJOR: ${{ steps.extract-version.outputs.major }}
+          MINOR: ${{ steps.extract-version.outputs.minor }}
+          PATCH: ${{ steps.extract-version.outputs.patch }}
+        with:
+          push: true
+          tags: |
+            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }},
+            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars MINOR }},
+            ${{ vars.IMAGE_NAME }}:${{ vars.MAJOR }}.${{ vars.MINOR }}.${{ vars.PATCH }}
 
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v6
-      #   env:
-      #     IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}
-      #   with:
-      #     push: true
-      #     tags: |
-      #       ${IMAGE_NAME}:${MAJOR},
-      #       ${IMAGE_NAME}:${MAJOR}.${MINOR},
-      #       ${IMAGE_NAME}:${MAJOR}.${MINOR}.${PATCH}
-
-      #     cache-from: type=gha
-      #     cache-to: type=gha,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
