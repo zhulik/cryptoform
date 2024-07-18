@@ -6,7 +6,7 @@ class Cryptoform::CLI::Server < Cryptoform::CLI::Command
     option :cryptofile, type: :string, default: Cryptoform::CRYPTOFILE
 
     def server
-      Cryptoform.run!(File.read(cryptofile_path))
+      Cryptoform.run!(read_cryptofile)
     end
   end
 end

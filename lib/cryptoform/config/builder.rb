@@ -9,6 +9,7 @@ class Cryptoform::Config::Builder
     @states = {}
 
     instance_eval(cryptofile)
+    validate!
   end
 
   def port(port)
